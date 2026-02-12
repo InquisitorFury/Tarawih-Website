@@ -32,7 +32,15 @@ source virtual/bin/activate  # On Windows: virtual\Scripts\activate
 pip install -r requirements.txt
 ```
 
-3. Run migrations and start server:
+3. Set up environment variables:
+
+```bash
+cp .env.example .env
+```
+
+Edit `.env` as needed. The defaults in `.env.example` are ready for local development.
+
+4. Run migrations and start server:
 
 ```bash
 cd tarawih
@@ -40,4 +48,4 @@ python manage.py migrate
 python manage.py runserver
 ```
 
-4. Open http://localhost:8000 in your browser
+5. Open http://localhost:8000 in your browser

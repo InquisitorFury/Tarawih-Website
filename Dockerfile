@@ -4,6 +4,9 @@ FROM python:3.11-slim
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
+ENV SECRET_KEY=django-insecure-docker-dev-only
+ENV DEBUG=True
+ENV ALLOWED_HOSTS=localhost,127.0.0.1
 
 # Set work directory
 WORKDIR /app

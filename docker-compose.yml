@@ -7,8 +7,9 @@ services:
       - "8000:8000"
     volumes:
       - tarawih-db:/app
-    environment:
-      - DEBUG=1
+    env_file:
+      - path: .env
+        required: false
 
 volumes:
   tarawih-db:
