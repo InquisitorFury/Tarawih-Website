@@ -1,0 +1,29 @@
+# Use Python 3.11 slim image
+FROM python:3.11-slim
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+ENV SECRET_KEY=django-insecure-docker-dev-only
+ENV DEBUG=True
+ENV ALLOWED_HOSTS=localhost,127.0.0.1
+
+# Set work directory
+WORKDIR /app
+
+# Install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy project
+COPY tarawih/ .
+
+# Copy entrypoint script
+COPY entrypoint.sh .
+RUN chmod +x entrypoint.sh
+
+# Expose port
+EXPOSE 8000
+
+# Run the development server
+CMD ["./entrypoint.sh"]
