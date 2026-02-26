@@ -120,7 +120,7 @@
 
   /* ✅ UPDATED: Arabic-friendly wrapping (don’t split letters) */
   .nights-table td{
-    white-space: normal;
+    white-space: whitespace;    /* preserve spaces, but allow wrapping */
     word-break: normal;          /* don't force breaking characters */
     overflow-wrap: break-word;   /* wrap only when needed */
     line-height: 1.9;
@@ -202,7 +202,14 @@
     color: #1c2541;
     font-weight: 700;
   }
+  #from-col{
+    width: 50%;
+  }
 
+  /* ✅ Make TILL bigger */
+  #till-col{
+    width: 50%;
+  }
 @media (max-width: 640px){
 
   .panel{
