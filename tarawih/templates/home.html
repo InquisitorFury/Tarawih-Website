@@ -118,11 +118,11 @@
     color: #eaf0ff;
   }
 
-  /* === UPDATED: LARGE TEXT SUPPORT === */
+  /* ✅ UPDATED: Arabic-friendly wrapping (don’t split letters) */
   .nights-table td{
     white-space: normal;
-    word-break: break-word;
-    overflow-wrap: anywhere;
+    word-break: normal;          /* don't force breaking characters */
+    overflow-wrap: break-word;   /* wrap only when needed */
     line-height: 1.9;
   }
 
@@ -132,7 +132,8 @@
     line-height: 2.1;
     margin-bottom: 8px;
     white-space: normal;
-    overflow-wrap: anywhere;
+    word-break: normal;
+    overflow-wrap: break-word;
   }
 
   .ref-line{
@@ -178,6 +179,7 @@
     white-space: nowrap;
     text-decoration: none;
   }
+
   .nights-table tbody tr:last-child td{
     border-bottom: none;
   }
@@ -200,6 +202,59 @@
     color: #1c2541;
     font-weight: 700;
   }
+
+@media (max-width: 640px){
+
+  .panel{
+    margin: 1px;
+    padding: 1px;
+  }
+
+  h1{
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* ✅ Apply layout control to TABLE */
+ 
+  .nights-table th,
+  .nights-table td{
+    padding: 1px;
+  }
+
+  /* Night column */
+  .night-col{
+    width: 1%;
+    font-size: 10px;
+
+  }
+
+  .night-col-title{
+    font-size: 10px;
+    text-align: center;
+  }
+
+  /* ✅ Make FROM smaller */
+  #from-col{
+    width: 30%;
+  }
+
+  /* ✅ Make TILL bigger */
+  #till-col{
+    width: 70%;
+  }
+
+  .verse-line{
+    font-size: clamp(15px, 4vw, 18px);
+    padding-top: 10px;
+    line-height: 2;
+  }
+
+  .ref-line{
+    font-size: 12px;
+  }
+}
+
 </style>
 </head>
 
@@ -226,9 +281,9 @@
     <table class="nights-table" dir="rtl">
       <thead>
         <tr>
-          <th class="night-col">Night</th>
-          <th>From</th>
-          <th>Till</th>
+          <th class="night-col-title">Night</th>
+          <th class="night-col-title">From</th>
+          <th class="night-col-title">Till</th>
         </tr>
       </thead>
 
@@ -237,23 +292,22 @@
           <tr>
             <td class="night-col">
               <a class="night-col-link" href="{% url 'rakah' n.night_number %}">
-                Night {{ n.night_number }}
+                {{ n.night_number }}
               </a>
             </td>
-
-            <td class="cell-ar">
+            <td class="cell-ar" id="from-col">
               {% if n.start_ayah %}
                 <div class="verse-line">{{ n.start_ayah }}</div>
               {% endif %}
               <div class="ref-line">{{ n.start_surah }}</div>
             </td>
-
-            <td class="cell-ar">
+            <td class="cell-ar" id="till-col">
               {% if n.end_ayah %}
                 <div class="verse-line">{{ n.end_ayah }}</div>
               {% endif %}
-              <div class="ref-line">{{ n.end_surah }}</div>
+            <div class="ref-line">{{ n.end_surah }}</div>
             </td>
+          
           </tr>
         {% endfor %}
       </tbody>
@@ -288,6 +342,7 @@
       });
     })();
   </script>
-
+  
 </body>
 </html>
+
